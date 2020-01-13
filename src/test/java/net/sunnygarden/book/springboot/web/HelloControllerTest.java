@@ -1,4 +1,4 @@
-package net.sunnygarden.book.springboot;
+package net.sunnygarden.book.springboot.web;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
