@@ -32,6 +32,15 @@ public class PostsService {
         return id;
     }
 
+    @Transactional
+    public Long delete(Long id) {
+        Posts posts = postsRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
+        postsRepository.delete(posts);
+
+        return id;
+    }
+
     public PostsResponseDto findById(Long id) {
         Posts entity = postsRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
