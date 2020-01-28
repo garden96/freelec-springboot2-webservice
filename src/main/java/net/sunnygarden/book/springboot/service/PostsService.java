@@ -3,11 +3,14 @@ package net.sunnygarden.book.springboot.service;
 import lombok.RequiredArgsConstructor;
 import net.sunnygarden.book.springboot.domain.posts.Posts;
 import net.sunnygarden.book.springboot.domain.posts.PostsRepository;
+import net.sunnygarden.book.springboot.web.dto.PostsListResponseDto;
 import net.sunnygarden.book.springboot.web.dto.PostsResponseDto;
 import net.sunnygarden.book.springboot.web.dto.PostsSaveRequestDto;
 import net.sunnygarden.book.springboot.web.dto.PostsUpdateRequestDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -35,4 +38,12 @@ public class PostsService {
 
         return new PostsResponseDto(entity);
     }
+
+    @Transactional(readOnly = true)
+    public Object findAllDesc() {
+        return postsRepository.findAllDesc().stream()
+                .map(PostsListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
 }
