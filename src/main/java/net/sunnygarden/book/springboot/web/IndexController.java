@@ -1,6 +1,7 @@
 package net.sunnygarden.book.springboot.web;
 
 import lombok.RequiredArgsConstructor;
+import net.sunnygarden.book.springboot.config.auth.LoginUser;
 import net.sunnygarden.book.springboot.config.auth.dto.SessionUser;
 import net.sunnygarden.book.springboot.domain.user.User;
 import net.sunnygarden.book.springboot.service.PostsService;
@@ -21,10 +22,9 @@ public class IndexController {
     private final HttpSession httpSession;
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(Model model, @LoginUser SessionUser user) {
         model.addAttribute("posts", postsService.findAllDesc());
 
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
         if(user != null) {
             model.addAttribute("userName",user.getName());
         }
